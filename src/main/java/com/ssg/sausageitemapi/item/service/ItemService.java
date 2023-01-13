@@ -5,7 +5,6 @@ import com.ssg.sausageitemapi.item.dto.response.ItemFindResponse;
 import com.ssg.sausageitemapi.item.entity.Item;
 import com.ssg.sausageitemapi.item.repository.ItemRepository;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    private final ItemServiceUtils itemServiceUtils;
+    private final ItemUtilService itemUtilService;
 
     public ItemFindListResponse findAllItemList() {
 
@@ -30,7 +29,7 @@ public class ItemService {
 
     public ItemFindResponse findItem(Long id) {
 
-        Item item = itemServiceUtils.findItemById(id);
+        Item item = itemUtilService.findItemById(id);
 
         return ItemFindResponse.of(item);
 
