@@ -50,7 +50,7 @@ public class ItemController {
     @Operation(summary = "상품 리스트 조회", responses = {
             @ApiResponse(responseCode = "200", description = "상품 리스트 조회 성공")
     })
-    @GetMapping(value = "/item", params = "itemIdList")
+    @GetMapping(value = "/item-list", params = "itemIdList")
     public ResponseEntity<SuccessResponse<ItemFindListResponse>> findItemList(@RequestParam List<Long> itemIdList) {
         return SuccessResponse.success(SuccessCode.FIND_ITEM_SUCCESS, itemService.findItemList(itemIdList));
     }
