@@ -17,7 +17,7 @@ import lombok.ToString;
 public class ItemFindResponse {
 
     @Schema(description = "상품 ID")
-    private Long id;
+    private Long itemId;
 
     @Schema(description = "상품 이름")
     private String itemNm;
@@ -36,7 +36,7 @@ public class ItemFindResponse {
 
     public static ItemFindResponse of(Item item) {
         return ItemFindResponse.builder()
-                .id(item.getId())
+                .itemId(item.getItemId())
                 .itemNm(item.getItemNm())
                 .itemAmt(item.getItemAmt())
                 .itemImgUrl(item.getItemImgUrl())
