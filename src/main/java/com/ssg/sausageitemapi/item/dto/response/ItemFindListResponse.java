@@ -2,7 +2,7 @@ package com.ssg.sausageitemapi.item.dto.response;
 
 
 import com.ssg.sausageitemapi.item.entity.Item;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
@@ -19,12 +19,14 @@ import lombok.ToString;
 @Builder(access = AccessLevel.PRIVATE)
 public class ItemFindListResponse {
 
-    private List<ItemInfo> itemList = Collections.emptyList();
+    private HashMap<Long, ItemInfo> itemMap;
 
     public static ItemFindListResponse of(List<Item> itemList) {
+
         return ItemFindListResponse
                 .builder()
-                .itemList(itemList.stream().map(ItemInfo::of).collect(Collectors.toList()))
+                .itemMap((HashMap<Long, ItemInfo>) itemList.stream()
+                        .collect(Collectors.toMap(Item::getItemId, ItemInfo::of)))
                 .build();
     }
 }

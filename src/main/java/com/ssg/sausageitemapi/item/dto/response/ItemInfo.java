@@ -1,14 +1,7 @@
 package com.ssg.sausageitemapi.item.dto.response;
 
 import com.ssg.sausageitemapi.item.entity.Item;
-import com.ssg.sausageitemapi.item.entity.ShppCd;
 import io.swagger.v3.oas.annotations.media.Schema;
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +17,10 @@ import lombok.ToString;
 public class ItemInfo {
 
     @Schema(description = "상품 ID")
-    private Long id;
+    private Long itemId;
+
+    @Schema(description = "상품 브랜드 이름")
+    private String itemBrandNm;
 
     @Schema(description = "상품 이름")
     private String itemNm;
@@ -44,8 +40,9 @@ public class ItemInfo {
     public static ItemInfo of(Item item) {
         return ItemInfo
                 .builder()
-                .id(item.getId())
+                .itemId(item.getItemId())
                 .itemImgUrl(item.getItemImgUrl())
+                .itemBrandNm(item.getItemBrandNm())
                 .itemNm(item.getItemNm())
                 .itemInvQty(item.getItemInvQty())
                 .itemAmt(item.getItemAmt())

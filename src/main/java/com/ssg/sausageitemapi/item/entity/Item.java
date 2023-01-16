@@ -29,7 +29,10 @@ public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ITEM_ID")
-    private Long id;
+    private Long itemId;
+
+    @Column(name = "ITEM_BRAND_NM")
+    private String itemBrandNm;
 
     @Column(name = "ITEM_NM")
     private String itemNm;

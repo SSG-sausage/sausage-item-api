@@ -17,10 +17,13 @@ import lombok.ToString;
 public class ItemFindResponse {
 
     @Schema(description = "상품 ID")
-    private Long id;
+    private Long itemId;
 
     @Schema(description = "상품 이름")
     private String itemNm;
+
+    @Schema(description = "상품 브랜드 이름")
+    private String itemBrandNm;
 
     @Schema(description = "상품 가격")
     private Integer itemAmt;
@@ -36,8 +39,9 @@ public class ItemFindResponse {
 
     public static ItemFindResponse of(Item item) {
         return ItemFindResponse.builder()
-                .id(item.getId())
+                .itemId(item.getItemId())
                 .itemNm(item.getItemNm())
+                .itemBrandNm(item.getItemBrandNm())
                 .itemAmt(item.getItemAmt())
                 .itemImgUrl(item.getItemImgUrl())
                 .itemInvQty(item.getItemInvQty())
