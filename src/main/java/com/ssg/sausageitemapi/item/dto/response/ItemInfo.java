@@ -46,7 +46,7 @@ public class ItemInfo {
                 .itemNm(item.getItemNm())
                 .itemInvQty(item.getItemInvQty())
                 .itemAmt(item.getItemAmt())
-                .shppCd(item.getShppCd().getNm())
+                .shppCd(item.getShppCd().name())
                 .build();
     }
 }
