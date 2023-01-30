@@ -31,7 +31,7 @@ public class ItemInfo {
     @Schema(description = "상품 수량")
     private String itemInvQty;
 
-    @Schema(description = "멤버 ID")
+    @Schema(description = "상품 이미지 URL")
     private String itemImgUrl;
 
     @Schema(description = "멤버 ID")
