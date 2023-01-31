@@ -45,7 +45,7 @@ public class ItemFindResponse {
                 .itemAmt(item.getItemAmt())
                 .itemImgUrl(item.getItemImgUrl())
                 .itemInvQty(item.getItemInvQty())
-                .shppCd(item.getShppCd().getNm())
+                .shppCd(item.getShppCd().name())
                 .build();
     }
 }
