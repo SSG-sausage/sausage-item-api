@@ -31,7 +31,7 @@ public class ItemInfo {
     @Schema(description = "상품 수량")
     private String itemInvQty;
 
-    @Schema(description = "멤버 ID")
+    @Schema(description = "상품 이미지 URL")
     private String itemImgUrl;
 
     @Schema(description = "멤버 ID")
@@ -46,7 +46,7 @@ public class ItemInfo {
                 .itemNm(item.getItemNm())
                 .itemInvQty(item.getItemInvQty())
                 .itemAmt(item.getItemAmt())
-                .shppCd(item.getShppCd().getNm())
+                .shppCd(item.getShppCd().name())
                 .build();
     }
 }

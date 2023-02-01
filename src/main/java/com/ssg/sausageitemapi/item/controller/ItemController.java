@@ -54,6 +54,4 @@ public class ItemController {
     public ResponseEntity<SuccessResponse<ItemFindListResponse>> findItemList(@RequestParam List<Long> itemIdList) {
         return SuccessResponse.success(SuccessCode.FIND_ITEM_SUCCESS, itemService.findItemList(itemIdList));
     }
-
-
 }
