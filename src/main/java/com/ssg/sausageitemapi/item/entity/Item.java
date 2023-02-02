@@ -41,7 +41,7 @@ public class Item extends BaseEntity {
     private Integer itemAmt;
 
     @Column(name = "ITEM_INV_QTY")
-    private String itemInvQty;
+    private Long itemInvQty;
 
     @Column(name = "ITEM_IMG_URL")
     private String itemImgUrl;
@@ -49,6 +49,14 @@ public class Item extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "SHPP_CD")
     private ShppCd shppCd;
+
+    public boolean canDecreaseItemInvQty(int itemInvQty) {
+        return this.itemInvQty - itemInvQty >= 0;
+    }
+
+    public void changeItemInvQty(int itemInvQty) {
+        this.itemInvQty -= itemInvQty;
+    }
 
 
 }
