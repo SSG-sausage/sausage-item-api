@@ -29,7 +29,7 @@ public class ItemFindResponse {
     private Integer itemAmt;
 
     @Schema(description = "상품 수량")
-    private Long itemInvQty;
+    private Integer itemInvQty;
 
     @Schema(description = "멤버 ID")
     private String itemImgUrl;

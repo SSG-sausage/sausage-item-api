@@ -16,6 +16,7 @@ public enum SuccessCode {
      */
     OK_SUCCESS(OK, "성공입니다."),
     FIND_ITEM_SUCCESS(OK, "아이템 조회 성공입니다."),
+    VALIDATE_ITEM_INV_QTY_SUCCESS(SuccessStatusCode.OK, "아이템 재고 체크 성공입니다."),
 
     /**
      * 201 CREATED

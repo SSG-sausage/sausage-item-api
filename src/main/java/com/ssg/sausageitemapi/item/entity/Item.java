@@ -41,7 +41,7 @@ public class Item extends BaseEntity {
     private Integer itemAmt;
 
     @Column(name = "ITEM_INV_QTY")
-    private Long itemInvQty;
+    private Integer itemInvQty;
 
     @Column(name = "ITEM_IMG_URL")
     private String itemImgUrl;
