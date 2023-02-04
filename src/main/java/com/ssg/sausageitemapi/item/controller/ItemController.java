@@ -58,13 +58,14 @@ public class ItemController {
         return SuccessResponse.success(SuccessCode.FIND_ITEM_SUCCESS, itemService.findItemList(itemIdList));
     }
 
-    @Operation(summary = "[internal] 상품 리스트 조회", responses = {
+    @Operation(summary = "[internal] 상품 재고 체크", responses = {
             @ApiResponse(responseCode = "200", description = "상품 재고 체크 성공입니다.")
     })
     @PostMapping(value = "/item/inv-qty-validation")
     public ResponseEntity<SuccessResponse<Boolean>> validateItemInvQty(
-            @RequestBody ItemInvQtyValidateRequest itemInvQtyValidateRequest) {
+            @RequestBody ItemInvQtyValidateRequest request) {
+
         return SuccessResponse.success(SuccessCode.VALIDATE_ITEM_INV_QTY_SUCCESS,
-                itemService.validateItemInvQty(itemInvQtyValidateRequest));
+                itemService.validateItemInvQty(request));
     }
 }

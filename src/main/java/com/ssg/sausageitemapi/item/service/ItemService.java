@@ -46,9 +46,9 @@ public class ItemService {
         return ItemFindListResponse.of(itemList);
     }
 
-    public boolean validateItemInvQty(ItemInvQtyValidateRequest itemInvQtyValidateRequest) {
+    public boolean validateItemInvQty(ItemInvQtyValidateRequest request) {
 
-        List<Long> itemIdList = itemInvQtyValidateRequest.getItemInfoList().stream()
+        List<Long> itemIdList = request.getItemInfoList().stream()
                 .map(ItemInfo::getItemId)
                 .collect(Collectors.toList());
 
@@ -57,7 +57,7 @@ public class ItemService {
         Map<Long, Integer> itemInvQtyMap = itemList.stream()
                 .collect(Collectors.toMap(Item::getItemId, Item::getItemInvQty));
 
-        for (ItemInfo itemInfo : itemInvQtyValidateRequest.getItemInfoList()) {
+        for (ItemInfo itemInfo : request.getItemInfoList()) {
 
             int itemInvQty = itemInvQtyMap.get(itemInfo.getItemId()) - itemInfo.getItemInvQty();
 
@@ -65,7 +65,6 @@ public class ItemService {
                 return false;
             }
         }
-
         return true;
     }
 }
