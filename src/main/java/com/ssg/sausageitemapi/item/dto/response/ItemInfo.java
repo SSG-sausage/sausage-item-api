@@ -29,7 +29,7 @@ public class ItemInfo {
     private Integer itemAmt;
 
     @Schema(description = "상품 수량")
-    private String itemInvQty;
+    private Integer itemInvQty;
 
     @Schema(description = "상품 이미지 URL")
     private String itemImgUrl;
