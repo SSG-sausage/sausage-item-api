@@ -2,6 +2,7 @@ package com.ssg.sausageitemapi.item.entity;
 
 
 import com.ssg.sausageitemapi.common.entity.BaseEntity;
+import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyUpdateListRequest.ItemInvQtyUpdateListDtoUpdateType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -54,8 +55,8 @@ public class Item extends BaseEntity {
         return this.itemInvQty - itemInvQty >= 0;
     }
 
-    public void changeItemInvQty(int itemInvQty) {
-        this.itemInvQty -= itemInvQty;
+    public void changeItemInvQty(int itemInvQty, ItemInvQtyUpdateListDtoUpdateType itemInvQtyUpdateListDtoUpdateType) {
+        this.itemInvQty += (itemInvQtyUpdateListDtoUpdateType.getValue() * itemInvQty);
     }
 
 

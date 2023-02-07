@@ -1,5 +1,8 @@
 package com.ssg.sausageitemapi.item.service;
 
+import com.ssg.sausageitemapi.common.exception.ErrorCode;
+import com.ssg.sausageitemapi.common.exception.ValidationException;
+import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyUpdateListRequest;
 import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyValidateRequest;
 import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyValidateRequest.ItemInfo;
 import com.ssg.sausageitemapi.item.dto.response.ItemFindListResponse;
@@ -39,6 +42,22 @@ public class ItemService {
 
     }
 
+    @Transactional
+    public void updateItemInvQty(ItemInvQtyUpdateListRequest itemInvQtyUpdateListRequest) {
+
+        for (ItemInvQtyUpdateListRequest.ItemInfo itemInfo : itemInvQtyUpdateListRequest.getCartShareOrdItemInfoList()) {
+
+            Item item = itemUtilService.findItemById(itemInfo.getItemId());
+
+            if (!item.canDecreaseItemInvQty(itemInfo.getItemInvQty())) {
+                throw new ValidationException("주문 상품 중 재고 소진된 상품이 존재합니다.", ErrorCode.VALIDATION_ITEM_INV_QTY);
+            }
+
+            item.changeItemInvQty(itemInfo.getItemInvQty(), itemInvQtyUpdateListRequest.getUpdateType());
+        }
+
+    }
+
     public ItemFindListResponse findItemList(List<Long> idList) {
 
         List<Item> itemList = itemRepository.findAllById(idList);
@@ -57,7 +76,7 @@ public class ItemService {
         Map<Long, Integer> itemInvQtyMap = itemList.stream()
                 .collect(Collectors.toMap(Item::getItemId, Item::getItemInvQty));
 
-        for (ItemInfo itemInfo : request.getItemInfoList()) {
+        for (ItemInvQtyValidateRequest.ItemInfo itemInfo : request.getItemInfoList()) {
 
             int itemInvQty = itemInvQtyMap.get(itemInfo.getItemId()) - itemInfo.getItemInvQty();
 
