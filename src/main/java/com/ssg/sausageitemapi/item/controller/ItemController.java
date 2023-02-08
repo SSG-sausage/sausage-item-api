@@ -3,6 +3,7 @@ package com.ssg.sausageitemapi.item.controller;
 import com.ssg.sausageitemapi.common.dto.ErrorResponse;
 import com.ssg.sausageitemapi.common.dto.SuccessResponse;
 import com.ssg.sausageitemapi.common.success.SuccessCode;
+import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyUpdateListRequest;
 import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyValidateRequest;
 import com.ssg.sausageitemapi.item.dto.response.ItemFindListResponse;
 import com.ssg.sausageitemapi.item.dto.response.ItemFindResponse;
@@ -56,6 +57,18 @@ public class ItemController {
     @GetMapping(value = "/item-list", params = "itemIdList")
     public ResponseEntity<SuccessResponse<ItemFindListResponse>> findItemList(@RequestParam List<Long> itemIdList) {
         return SuccessResponse.success(SuccessCode.FIND_ITEM_SUCCESS, itemService.findItemList(itemIdList));
+    }
+
+    @Operation(summary = "[internal] 상품 재고 차감", responses = {
+            @ApiResponse(responseCode = "200", description = "상품 재고 차감 성공입니다.")
+    })
+    @PostMapping(value = "/item/inv-qty")
+    public ResponseEntity<SuccessResponse<String>> updateItemInvQty(
+            @RequestBody ItemInvQtyUpdateListRequest itemInvQtyUpdateListRequest) {
+
+        itemService.updateItemInvQty(itemInvQtyUpdateListRequest);
+
+        return SuccessResponse.OK;
     }
 
     @Operation(summary = "[internal] 상품 재고 체크", responses = {
