@@ -1,5 +1,6 @@
-package com.ssg.sausageitemapi.item.dto.request;
+package com.ssg.sausageitemapi.common.kafka.dto;
 
+import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyUpdateInfo;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -13,21 +14,19 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(access = AccessLevel.PRIVATE)
-public class ItemInvQtyUpdateListRequest {
+public class ItemInvQtyUpdateListDto {
 
     private List<ItemInvQtyUpdateInfo> itemInvQtyUpdateInfoList = new ArrayList<>();
 
-    private ItemInvQtyUpdateListRequestType updateType;
-
+    private ItemInvQtyUpdateListDtoType itemInvQtyUpdateListDtoType;
 
     @RequiredArgsConstructor
     @Getter
-    public enum ItemInvQtyUpdateListRequestType {
+    public enum ItemInvQtyUpdateListDtoType {
 
         INCREASE(1),
         DECREASE(-1);
 
         private final int value;
     }
-
 }

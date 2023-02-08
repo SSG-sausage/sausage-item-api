@@ -2,9 +2,10 @@ package com.ssg.sausageitemapi.item.service;
 
 import com.ssg.sausageitemapi.common.exception.ErrorCode;
 import com.ssg.sausageitemapi.common.exception.ValidationException;
+import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyUpdateInfo;
 import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyUpdateListRequest;
 import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyValidateRequest;
-import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyValidateRequest.ItemInfo;
+import com.ssg.sausageitemapi.item.dto.request.ItemInvQtyValidateRequest.ItemValidateInfo;
 import com.ssg.sausageitemapi.item.dto.response.ItemFindListResponse;
 import com.ssg.sausageitemapi.item.dto.response.ItemFindResponse;
 import com.ssg.sausageitemapi.item.entity.Item;
@@ -43,17 +44,17 @@ public class ItemService {
     }
 
     @Transactional
-    public void updateItemInvQty(ItemInvQtyUpdateListRequest itemInvQtyUpdateListRequest) {
+    public void updateItemInvQty(ItemInvQtyUpdateListRequest request) {
 
-        for (ItemInvQtyUpdateListRequest.ItemInfo itemInfo : itemInvQtyUpdateListRequest.getCartShareOrdItemInfoList()) {
+        for (ItemInvQtyUpdateInfo itemInvQtyUpdateInfo : request.getItemInvQtyUpdateInfoList()) {
 
-            Item item = itemUtilService.findItemById(itemInfo.getItemId());
+            Item item = itemUtilService.findItemById(itemInvQtyUpdateInfo.getItemId());
 
-            if (!item.canDecreaseItemInvQty(itemInfo.getItemInvQty())) {
+            if (!item.canDecreaseItemInvQty(itemInvQtyUpdateInfo.getItemInvQty())) {
                 throw new ValidationException("주문 상품 중 재고 소진된 상품이 존재합니다.", ErrorCode.VALIDATION_ITEM_INV_QTY);
             }
-
-            item.changeItemInvQty(itemInfo.getItemInvQty(), itemInvQtyUpdateListRequest.getUpdateType());
+            
+            item.changeItemInvQty(itemInvQtyUpdateInfo.getItemInvQty(), request.getUpdateType().getValue());
         }
 
     }
@@ -67,8 +68,8 @@ public class ItemService {
 
     public boolean validateItemInvQty(ItemInvQtyValidateRequest request) {
 
-        List<Long> itemIdList = request.getItemInfoList().stream()
-                .map(ItemInfo::getItemId)
+        List<Long> itemIdList = request.getItemValidateInfoList().stream()
+                .map(ItemValidateInfo::getItemId)
                 .collect(Collectors.toList());
 
         List<Item> itemList = itemRepository.findAllById(itemIdList);
@@ -76,9 +77,9 @@ public class ItemService {
         Map<Long, Integer> itemInvQtyMap = itemList.stream()
                 .collect(Collectors.toMap(Item::getItemId, Item::getItemInvQty));
 
-        for (ItemInvQtyValidateRequest.ItemInfo itemInfo : request.getItemInfoList()) {
+        for (ItemValidateInfo itemValidateInfo : request.getItemValidateInfoList()) {
 
-            int itemInvQty = itemInvQtyMap.get(itemInfo.getItemId()) - itemInfo.getItemInvQty();
+            int itemInvQty = itemInvQtyMap.get(itemValidateInfo.getItemId()) - itemValidateInfo.getItemInvQty();
 
             if (itemInvQty < 0) {
                 return false;
